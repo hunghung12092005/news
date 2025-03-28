@@ -1,0 +1,399 @@
+/* CSS */
+
+/* Global */
+*{
+    padding: 0px; 
+    margin: 0px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    text-decoration: none;
+}
+body{
+    font-family: 'Acme', Tahoma, sans-serif;
+}
+a{
+  text-decoration: none;
+  color:pink
+}
+/* Begin Header */
+.header{
+    position: relative;
+    width: 100%;
+    height: 70px
+}
+/* Begin Logo */
+.header .logo {
+    float: left;
+    padding: 0px 5px;
+    color: #2E2E2E;
+    border: 2px solid #2E2E2E;
+    text-transform: uppercase;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    margin-top: 12px;
+    margin-left: 10%    
+}
+/* End Logo */
+/* Begin Nav-Bar */
+.header .nav-bar{
+    float: right;
+    padding: 0px 20px
+}
+.header .nav-bar .menu-ul{
+    list-style: none
+}
+.header .nav-bar .menu-ul .menu-li{
+    position: relative;
+    display:inline-block;
+    padding: 24px 0px;
+    margin: 0px 15px;
+    color: #2E2E2E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: capitalize
+}
+.header .nav-bar .menu-ul .menu-li:first-child{
+    border-bottom: 6px solid black
+}
+.header .nav-bar .menu-ul .menu-li:hover{
+    border-bottom: 6px solid black
+}
+.header .nav-bar .menu-ul .sub-menu-ul{
+    display: none;
+    text-align: left;
+    position: absolute;
+    background-color: black;
+    top: 72px;
+    left: 0px;
+    margin-left: -30px;
+    width: 240px;
+    padding: 0px;
+    transition: all 200ms ease-out;
+    -webkit-transition: all 200ms ease-out;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    z-index: 1;
+
+}
+.header .nav-bar .menu-ul .sub-menu-ul .sub-menu-li{
+    display:block;
+    padding: 15px;
+    color: white;
+    font-weight: normal;
+    letter-spacing: 2px
+}
+.header .nav-bar .menu-ul .sub-menu-ul .sub-menu-li a{
+    color: white
+}
+
+.header .nav-bar .menu-ul .menu-li:hover .sub-menu-ul{
+    display:block;
+}
+.header .nav-bar .menu-ul .sub-menu-ul .sub-menu-li:hover{
+    background: white;
+    color:black;
+    font-weight: bold
+}    
+.header .nav-bar .menu-ul .sub-menu-ul .sub-menu-li:hover a{
+    color:black;
+    font-weight: bold
+}    
+/* End Nav-Bar */
+/* End Header */
+/* Begin Slider */
+.slider{
+    background-color: black;
+    width: 100%;
+    height: 338px;
+    margin: auto
+}
+.slider .column{
+    position: relative;
+    float: left;
+    width: 33.3%
+}
+.slider .column:last-child{
+    float: left;
+    width: calc(100% - 66.6%)
+}
+.slider .column .photo{
+    width: 100%;
+    height: 338px;
+    opacity: 0.5    
+}
+.slider .column .content{
+    position: absolute;
+    top:30%;
+    width:100%
+}
+.category{
+    padding: 5px 10px;
+    background-color: black;
+    color:white;
+    font-size: 12px;
+    line-height: 28px;
+    font-weight: 700;
+    text-transform: capitalize;
+    letter-spacing: 2.5px
+}
+.slider .column .content .category{
+    display: block;
+    width: 30%;
+    text-align: center;
+    margin:auto
+
+}
+.slider .column .content .title{
+    display: block;
+    margin:auto;
+    width: 90%;
+    color:white;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 20px
+}
+.slider .column .content .title:hover{
+    opacity: 0.5 
+}
+/* End Slider */
+body{
+    background-color: #EEE
+}
+/* Begin Page */
+.page{
+    position: relative;
+    display: block;
+    width:93%;
+    margin: 20px auto
+}
+/* Begin News-Column */
+.page .news-column{
+    position :relative;
+    float: left;
+    width: 70%;
+    padding-right: 40px
+}
+/* Begin News */
+.page .news-column .news{
+    position: relative;
+    background-color: white;
+    padding:20px;
+    margin-bottom: 20px
+}
+/* Begin News Head */
+.page .news-column .news .head{
+    display: block;
+    width:41%;
+    margin: 10px auto;
+    font-weight: 600;
+    text-transform: capitalize
+}
+.page .news-column .news .head .category{
+    float: left
+}
+.page .news-column .news .head p{
+    float: left;
+    line-height: 2.5;
+    margin: 0px 10px
+}
+.page .news-column .news .head .auth{
+    float: left;
+    line-height: 2.5
+}
+.page .news-column .news .head .auth:hover{
+    color: orange
+}
+/* End News Head */
+/* Begin News Title */
+.page .news-column .news .title{
+    width:100%;
+    margin: 10px auto;
+    color:#2E2E2E;
+    font-size: 35px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: capitalize
+}
+/* End News Title */
+/* Begin News Photo */
+.page .news-column .news .photo{
+    width:100%;
+    margin: 20px 0px
+}
+/* End News Photo */
+/* Begin News Paragraph */
+.page .news-column .news .paragraph{
+    text-align: justify;
+    line-height: 2;
+    color:#808080;
+    margin-bottom: 50px
+}
+/* End News Paragraph */
+/* Begin News Button Read More */
+.page .news-column .news .btn-ReadMore{
+    display: block;
+    margin:10px auto;
+    padding: 15px 20px;
+    width:150px;
+    background-color: black;
+    color:white;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-align: center;
+    text-transform: capitalize;
+    border: 1px solid black
+}
+.page .news-column .news .btn-ReadMore:hover{
+    background-color: white;
+    color:black;
+    border: 1px solid black
+}
+/* End News Button Read More */
+/* End News */
+/* End News-Column */
+/* Begin Widget-Column */
+.page .widget-column{
+    position :relative;
+    float: right;
+    width: 30%
+}
+/* Begin Widget */
+.page .widget-column .widget{
+    width: 100%;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px
+}
+.page .widget-column .widget .title-widget{
+    width: 100%;
+    margin-top:10px;
+    padding-bottom: 10px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color:#2E2E2E;
+}
+.page .widget-column .widget .title-widget::after{
+    display: block;
+    content: "";
+    width:50px;
+    border:2px solid #2E2E2E;
+    margin: 10px auto
+}    
+.page .widget-column .widget .photo{
+    width: 100%;
+    margin: 20px 0px
+}
+.page .widget-column .widget .text{
+    line-height: 1.5;
+    text-align: justify;
+    color:#808080
+}
+.page .widget-column .widget .email{
+    width: 100%;
+    height: 50px;
+    margin: 20px 0 10px;
+    padding: 10px 20px;
+    background-color: #EDEDED;
+    color:#808080;
+    border-style: none;
+    font-size: 14px;
+    font-family: 'Acme', Tahoma, sans-serif;
+    outline: none
+}
+.page .widget-column .widget .btn-subscribe{
+    width: 100%;
+    height: 50px;
+    padding-left: 20px;
+    background-color: black;
+    color:white;
+    font-size: 15px;
+    text-align: left;
+    text-transform: capitalize;
+    font-family: 'Acme', Tahoma, sans-serif;
+    letter-spacing: 2px
+}
+.page .widget-column .widget .btn-subscribe:hover{
+    background-color: white;
+    color:black;
+    border: 1px solid black
+}
+.page .widget-column .widget ul{
+    margin-left:20px
+}
+.page .widget-column .widget ul li{
+    padding:10px 0;
+    color: #808080
+}
+.page .widget-column .widget ul li a{
+    color: #808080
+}
+.page .widget-column .widget .recent-posts{
+    position: relative;
+    list-style: none
+}
+.page .widget-column .widget ul li .photo{
+    width: 100px;
+    float: left;
+    margin-right: 20px
+}
+.page .widget-column .widget ul li .element{
+    margin-top: 15px;
+    text-transform: capitalize;
+    line-height: 1.5
+}
+.page .widget-column .widget ul li .element .title{
+    color: black;
+    font-size: 20px;
+    font-size: 15px
+}
+.page .widget-column .widget ul li .element .date{
+    color:#808080;
+    font-size: 15px
+}
+/* End Widget */
+/* Begin Search */
+.page .widget-column .search{
+    width: 100%;
+    margin-bottom: 20px
+}
+.page .widget-column .search .text{
+    float: left;
+    width: 70%;
+    height: 50px;
+    color:#808080;
+    padding: 10px 20px;
+    outline: none;
+    border-style: none
+}
+.page .widget-column .search .btn{
+    width: 30%;
+    height: 50px;
+    background-color: black;
+    color:white;
+    font-size: 15px;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    font-family: 'Acme', Tahoma, sans-serif;
+    border: 1px solid black
+}
+.page .widget-column .search .btn:hover{
+    background-color: orange;
+    color:white;
+    border: 1px solid orange
+}
+/* End Widget-Column */
+/* End Page */
+
+
+/* footer */
