@@ -58,7 +58,8 @@
                                     @csrf
                                     <li class="menu-li"><a href="{{ route('logout') }}">Đăng Xuất</a></li>
                                 </form>
-                                <li class="menu-li"><a href="{{ route('password.request') }}">Quên Mật Khẩu</a></li>
+                                
+                                <li class="menu-li"><a href="{{ route('user.account') }}">Account</a></li>
                             </li>
                         @else
                             <li class="menu-li"><a href="{{ route('login') }}">Đăng Nhập & Đăng Ký</a></li>

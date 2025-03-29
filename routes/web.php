@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TinController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Tinker\TinkerCaster;
+//use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,11 +31,17 @@ Route::get('login',[LoginController::class,'showLoginForm'])->name('login');
 Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::post('handlelogin',[LoginController::class,'login'])->name('login.login');
 Route::post('handleregister',[LoginController::class,'register'])->name('login.register');
+// Route cho đăng nhập Google
+Route::get('auth/google', [LoginController::class, 'redirectToGoogle'])->name('auth.google');
+
+// Route cho callback từ Google
+Route::get('auth/google/callback', [LoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 //quên mk
-// web.php
+
 Route::get('forgot-password', [LoginController::class, 'showForgotPasswordForm'])->name('password.request');
+Route::get('account', [LoginController::class, 'showFormAccount'])->name('user.account');
 Route::post('forgot-password', [LoginController::class, 'sendOtp'])->name('password.email');
-//Route::get('verify-otp', [LoginController::class, 'showVerifyOtpForm'])->name('otp.verify');
+Route::get('verify-otp', [LoginController::class, 'showVerifyOtpForm'])->name('otp.verify');
 Route::post('verify-otp', [LoginController::class, 'verifyOtp'])->name('otp.verify.submit');
 Route::get('reset-password/{token}', [LoginController::class, 'showResetPasswordForm'])->name('password.reset');
 Route::post('reset-password', [LoginController::class, 'handleResetPassword'])->name('password.update');

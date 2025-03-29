@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'welcome')
+@section('title', 'detail News')
 
 @section('content')
     <style>

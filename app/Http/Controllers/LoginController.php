@@ -8,6 +8,7 @@ use App\Models\User; // Đảm bảo import model User
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
@@ -86,10 +87,49 @@ class LoginController extends Controller
         session()->flush(); // Thay vì session_destroy()
         return redirect()->route('login')->with('success', 'Bạn đã đăng xuất thành công.');
     }
+    //login Google
+    public function redirectToGoogle()
+    {
+        //composer require laravel/socialite
+        //nhớ cài lại config/services
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+        //dd($user);
+        // Tìm người dùng theo email
+        $authUser = User::where('email', $user->email)->first();
+
+        if (!$authUser) {
+            // Nếu chưa có người dùng, tạo mới
+            $authUser = User::create([
+                'name' => $user->name,
+                'email' => $user->email,
+                'google_id' => $user->id,
+                'password' => bcrypt(rand(16,20)), // Tạo mật khẩu ngẫu nhiên
+            ]);
+        }
+
+        // Đăng nhập người dùng
+        session([
+            'name' => $user->name,
+            'id' => $user->id
+        ]);
+        Auth::login($authUser, true);
+
+        // Chuyển hướng đến trang chính
+        return redirect()->to('/');
+    }
     //quên mk
     public function showForgotPasswordForm()
     {
         return view('auth.forgotpassword');
+    }
+    public function showFormAccount()
+    {
+        return view('auth.formaccount');
     }
 
     public function sendOtp(Request $request)
@@ -125,31 +165,49 @@ class LoginController extends Controller
         return view('auth.verification_form', $data);
     }
 
-    // public function showVerifyOtpForm()
-    // {
-    //     return view('auth.verification_form');
-    // }
+    public function showVerifyOtpForm()
+    {
+        return view('auth.verification_form');
+    }
 
     public function verifyOtp(Request $request)
     {
         // Xác thực mã OTP
         $request->validate(['otp' => 'required', 'email' => 'required|email']);
 
-        // Kiểm tra mã OTP (giả sử bạn đã lưu mã OTP và email trong cơ sở dữ liệu)
+        // Kiểm tra người dùng dựa trên email
         $user = User::where('email', $request->email)->first();
-        if ($user) {
-            // Tạo token reset mật khẩu
-            $token = $request->otp; // Hoặc sử dụng bất kỳ phương thức nào để tạo token
 
-            // Lưu token vào cơ sở dữ liệu hoặc session
-            $user->password_reset_token = $token;
-            $user->save();
-
-            // Trả về phản hồi JSON với token và email
-            return response()->json(['success' => true, 'token' => $token, 'email' => $request->email]);
+        if (!$user) {
+            // Nếu không tìm thấy người dùng
+            return back()->withErrors(['email' => 'Không tìm thấy tài khoản với email này.']);
         }
 
-        return response()->json(['success' => false, 'error' => 'Mã OTP không hợp lệ.'], 400);
+        // // Kiểm tra mã OTP
+        // if ($request->otp !== $user->password_reset_token) {
+        //     return response()->json(['success' => true, 'token' => $token, 'email' => $request->email]);
+
+        //     // return redirect()->route('otp.verify')->withErrors(['failOtp' => 'Mã OTP không chính xác.']);
+        //    // return back()->withErrors(['failOtp' => 'Mã OTP không chính xác.']);
+        // }
+        if ($request->otp !== $user->password_reset_token) {
+            //dd(1);
+            return response()->json([
+                'success' => false,
+                'message' => 'Mã OTP không chính xác.'
+            ]);
+        }
+
+        // Nếu mã OTP đúng
+        // Tạo token reset mật khẩu
+        $token = $request->otp; // Hoặc sử dụng bất kỳ phương thức nào để tạo token
+
+        // Lưu token vào cơ sở dữ liệu hoặc session
+        $user->password_reset_token = $token;
+        $user->save();
+
+        // Trả về phản hồi JSON với token và email
+        return response()->json(['success' => true, 'token' => $token, 'email' => $request->email]);
     }
 
     public function showResetPasswordForm(Request $request, $token)
