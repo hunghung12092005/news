@@ -35,11 +35,16 @@ class LoginController extends Controller
             // Gán tên vào session
             session([
                 'name' => $user->name,
-                'id' => $user->id
+                'id' => $user->id,
+                'role' => $user->role
             ]);
+            if(session('role') === 'admin'){
+                session([
+                    'admin' => 'admin',
+                ]);
+            }
             //$id = session('name'); // Lấy giá trị 'id' từ session
             //dd($id); // Hiển thị giá trị 'id'
-
             return redirect()->route('news-index')->with('success', 'Đăng nhập thành công!');
         }
 
@@ -65,11 +70,12 @@ class LoginController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
-
+        $role = 'client';
         // Tạo người dùng mới
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $role,
             'password' => Hash::make($request->password), // Mã hóa mật khẩu
         ]);
 
@@ -101,22 +107,31 @@ class LoginController extends Controller
         //dd($user);
         // Tìm người dùng theo email
         $authUser = User::where('email', $user->email)->first();
-
+        $role = 'client';
         if (!$authUser) {
             // Nếu chưa có người dùng, tạo mới
             $authUser = User::create([
                 'name' => $user->name,
                 'email' => $user->email,
+                'role' => $role,
                 'google_id' => $user->id,
                 'password' => bcrypt(rand(16,20)), // Tạo mật khẩu ngẫu nhiên
             ]);
-        }
-
+        }   
+        $userWithAuth = Auth::user();// dùng cái này mới lấy được dữ liệu từ db
         // Đăng nhập người dùng
         session([
             'name' => $user->name,
-            'id' => $user->id
+            'id' => $user->id,
+            'role' => $userWithAuth->role
         ]);
+        //dd(session('role'));
+        if(session('role') === 'admin'){
+            session([
+                'admin' => 'admin',
+            ]);
+        }
+        //dd(session('admin'));
         Auth::login($authUser, true);
 
         // Chuyển hướng đến trang chính

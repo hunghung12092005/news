@@ -11,7 +11,10 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Acme">
 
 </head>
+
 <body>
+    
+ 
     <div class="container">
         <div class="header">
             <!-- Begin Logo -->
@@ -58,9 +61,12 @@
                                     @csrf
                                     <li class="menu-li"><a href="{{ route('logout') }}">Đăng Xuất</a></li>
                                 </form>
-                                
+                                @if (session('admin'))
+                                <li class="menu-li"><a href="{{ route('admin.index') }}">Vào admin</a></li>
+                                @endif                                   
                                 <li class="menu-li"><a href="{{ route('user.account') }}">Account</a></li>
                             </li>
+                       
                         @else
                             <li class="menu-li"><a href="{{ route('login') }}">Đăng Nhập & Đăng Ký</a></li>
                         @endif
@@ -80,4 +86,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
